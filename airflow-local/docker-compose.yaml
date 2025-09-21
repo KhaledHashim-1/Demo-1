@@ -80,6 +80,8 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ../../Keys/kaggle.json:/home/airflow/.kaggle/kaggle.json:ro
     - ../../Keys/ready-de27-0df26cef326b.json:/opt/airflow/keys/ready-de27-0df26cef326b.json:ro
+    - ../my_dbt_project:/opt/airflow/dbt/my_dbt_project
+    - ~/.dbt:/opt/airflow/dbt  
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on

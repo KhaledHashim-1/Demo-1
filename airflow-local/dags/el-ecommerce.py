@@ -5,7 +5,7 @@ from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQue
 from airflow.operators.bash import BashOperator
 
 with DAG(
-    "ecommerce_etl",
+    "el-ecommerce",
     schedule_interval=None,
     start_date=days_ago(1),
     catchup=False,
@@ -27,7 +27,7 @@ with DAG(
     upload_to_gcs = LocalFilesystemToGCSOperator(
         task_id="upload_to_gcs",
         src="/opt/airflow/data/ecommerce_sales_34500.csv",
-        dst="raw/ecommerce_sales_34500.csv",
+        dst="Demo-1-raw/Demo-1-ecommerce_sales_34500.csv",
         bucket="khaled-bucket-demo",
         gcp_conn_id="google_cloud_default",  
     )
@@ -35,8 +35,8 @@ with DAG(
     load_to_bq = GCSToBigQueryOperator(
         task_id="load_to_bq",
         bucket="khaled-bucket-demo",
-        source_objects=["raw/ecommerce_sales_34500.csv"],
-        destination_project_dataset_table="ready-de27.khaled_projects.raw_ecommerce",
+        source_objects=["Demo-1-raw/Demo-1-ecommerce_sales_34500.csv"],
+        destination_project_dataset_table="ready-de27.khaled_projects.Demo-1-raw_ecommerce",
         source_format="CSV",
         skip_leading_rows=1,
         autodetect=True,
