@@ -21,7 +21,7 @@ with DAG(
 
     unzip_data = BashOperator(
         task_id="unzip_data",
-        bash_command="unzip -o /opt/airflow/data/archive.zip -d /opt/airflow/data/"
+        bash_command="unzip -o /opt/airflow/data/*.zip -d /opt/airflow/data/"
     )
 
     upload_to_gcs = LocalFilesystemToGCSOperator(
@@ -29,6 +29,7 @@ with DAG(
         src="/opt/airflow/data/ecommerce_sales_34500.csv",
         dst="raw/ecommerce_sales_34500.csv",
         bucket="khaled-bucket-demo",
+        gcp_conn_id="google_cloud_default",  
     )
 
     load_to_bq = GCSToBigQueryOperator(
@@ -40,6 +41,7 @@ with DAG(
         skip_leading_rows=1,
         autodetect=True,
         write_disposition="WRITE_TRUNCATE",
+        gcp_conn_id="google_cloud_default", 
     )
 
     download_data >> unzip_data >> upload_to_gcs >> load_to_bq
