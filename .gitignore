@@ -1,17 +1,14 @@
-# Ignore Python caches
 __pycache__/
 *.pyc
 
-# Ignore Airflow logs/db
 airflow-local/logs/
 airflow-local/tmp/
 airflow-local/*.db
 
-# Ignore dbt build artifacts
 my_dbt_project/target/
 my_dbt_project/dbt_packages/
 my_dbt_project/logs/
 
-# Ignore secrets
 .env
 *.json
+Keys/
