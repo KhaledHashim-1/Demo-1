@@ -32,4 +32,13 @@ with DAG(
         ),
     )
 
-    dbt_run_staging >> dbt_run_marts
+    dbt_run_reporting = BashOperator(
+        task_id="dbt_run_reporting",
+        bash_command=(
+            "cd /opt/airflow/dbt/my_dbt_project && "
+            "dbt run --select reporting --profiles-dir /opt/airflow/dbt"
+        ),
+    )
+
+    
+    dbt_run_staging >> dbt_run_marts >> dbt_run_reporting
