@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source('khaled_projects', 'Demo-1-stg_ecommerce') }}
+    select * from {{ source('khaled_projects', 'Demo-1-raw_ecommerce') }}
 ),
 cleaned as (
     select

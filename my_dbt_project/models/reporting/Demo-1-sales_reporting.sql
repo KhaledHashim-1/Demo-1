@@ -22,7 +22,7 @@ select
     p.category,
     f.returned,
     f.delivery_time_days
-from {{ ref('fact_orders') }} f
+from {{ ref('Demo-1-fact_orders') }} f
 left join {{ ref('Demo-1-dim_dates') }} d on f.date_key = d.date_key
 left join {{ ref('Demo-1-dim_products') }} p on f.product_id = p.product_id
 left join {{ ref('Demo-1-dim_customers') }} c on f.customer_id = c.customer_id
